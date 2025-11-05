@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Noto+Sans+JP:wght@100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+body {
+    margin: 0;
+    font-family: "Inconsolata", monospace;
+    font-weight: 700;
+    background-color: #f4f2e1;
+    color: #2d3436;
+}
+header {
+    background-color: #ff8400;
+    color: white;
+    padding: 10px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.5em;
+    letter-spacing: 1px;
+}
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 140px;
+    
+}
+.panel {
+    background-color: #ffffff;
+    
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+    border-radius: 7px;
+}
+h2 {
+    margin-top: 0;
+    color: #ffa200;
+    font-size: 1.3em;
+}
+.input-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 10px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+input {
+    padding: 10px;
+    border: 1px solid #ffb347;
+    border-radius: 6px;
+    font-size: 1em;
+}
+button {
+    background-color: #ff8400;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1em;
+}
+button:hover {
+    background-color: #74b9ff;
+}
+.card {
+    background-color: #f4f2e1;
+    padding: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.actions button {
+    background-color: transparent;
+    color: #0984e3;
+    border: none;
+    margin-left: 10px;
+    font-size: 1.1em;
+    cursor: pointer;
+}
+.actions button:hover {
+    color: #2d3436;
+}
+@media (max-width: 768px) {
+    .input-group {
+        grid-template-columns: 1fr;
+    }
+}
