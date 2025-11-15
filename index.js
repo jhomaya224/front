@@ -62,38 +62,89 @@ function EliminarPedido(index){
         mostrarpedido();
     }
 }
-
-
-
-
-
-
-
-
-
-//
-let producto=JSON.parse(localStorage.getItem('Productos'))|| []
-
-function guardarProducto(){
-    localStorage.setItem('Productos', JSON.stringify(producto))
+function cambiarEstado(index) {
+    const estados = ['Cocinando', 'empacando', 'En camino', 'llego a su destino'];
+    let estadoActual = pedido[index].estado || pedido[index].Estado;
+    let nuevoEstado = estados[(estados.indexOf(estadoActual) + 1) % estados.length];
+    pedido[index].estado = nuevoEstado;
+    delete pedido[index].Estado;
+    guardarPedido();
+    mostrarpedido();
 }
 
-function agregarproducto(){
-    const Lista = document.getElementById('listaProductos')
-    Producto.forEach(producto,index => {
-        const div=document.createElementById('div')
-        div.className='card';
-        div.innerHTML=`
-        <span> Numero :${producto.cliente} - Destino : ${producto.solicitado} -:${producto.estado}
+let Producto = JSON.parse(localStorage.getItem('Productos')) || [];
 
-        <div class="actions">
-                    <button onClick="editarVuelo(${index})"><i class="fa-solid fa-pen-to-square"></i></button>
-                    <button onClick="eliminarVuelo(${index})"><i class="fa-solid fa-trash"></i></button>
-                    <button onClick="cambiarEstado(${index})"><i class="fa-solid fa-retweet"></i></button>
-                </div>
-        `
+function guardarProducto() {
+    localStorage.setItem('Productos', JSON.stringify(Producto));
+}
+function mostrarproducto() {
+    const Lista = document.getElementById('listaProductos');
+    Lista.innerHTML = '';
+
+    Producto.forEach((prod, index) => {
+        const div = document.createElement('div');
+        div.className = 'card';
+
+        div.innerHTML = `
+            <span> Nombre: ${prod.nombre} - Precio: ${prod.precio} - Estado: ${prod.estado} </span>
+            <div class="actions">
+                <button onClick="EditarProducto(${index})"><i class="fa-solid fa-pen-to-square"></i></button>
+                <button onClick="EliminarProducto(${index})"><i class="fa-solid fa-trash"></i></button>
+                <button onClick="cambiarEstadoProducto(${index})"><i class="fa-solid fa-retweet"></i></button>
+            </div>
+        `;
 
         Lista.appendChild(div);
     });
 }
+
+function agregarProducto() {
+    const nombre = document.getElementById('nombreproducto').value;
+    const precio = document.getElementById('precio').value;
+
+    if (nombre && precio) {
+        Producto.push({
+            nombre,
+            precio,
+            estado: 'Disponible'
+        });
+
+        guardarProducto();
+        mostrarproducto();
+
+        document.getElementById('nombreproducto').value = '';
+        document.getElementById('precio').value = '';
+    }
+}
+
+function EditarProducto(index) {
+    let nuevoNombre = prompt("Nuevo nombre:", Producto[index].nombre);
+    let nuevoPrecio = prompt("Nuevo precio:", Producto[index].precio);
+
+    if (nuevoNombre && nuevoPrecio) {
+        Producto[index].nombre = nuevoNombre;
+        Producto[index].precio = nuevoPrecio;
+        guardarProducto();
+        mostrarproducto();
+    }
+}
+
+function EliminarProducto(index) {
+    Producto.splice(index, 1);
+    guardarProducto();
+    mostrarproducto();
+}
+function cambiarEstadoProducto(index) {
+    const estados = ['Disponible', 'No Disponible'];
+
+    let actual = Producto[index].estado;
+    let nuevoEstado =
+        estados[(estados.indexOf(actual) + 1) % estados.length];
+
+    Producto[index].estado = nuevoEstado;
+
+    guardarProducto();
+    mostrarproducto();
+}
+
 
